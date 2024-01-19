@@ -1,0 +1,51 @@
+
+version: "3.8"
+services:
+  cloud-app:
+    build: ./cloud-app
+    ports:
+      - 3000:3000
+
+  posts:
+    build: ./posts
+    ports:
+      - 3006:3006
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/posts-db
+    
+  comments:
+    build: ./comments
+    ports:
+      - 3005:3005
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/comments-db
+    
+  likes:
+    build: ./likes
+    ports:
+      - 3009:3009
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/likes-db
+    
+  users:
+    build: ./users
+    ports:
+      - 3007:3007
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/users-db
+    
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    
+
+
